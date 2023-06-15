@@ -1,43 +1,58 @@
-# Guía de Primeros Pasos con Vagrant
+# Project Name
 
-## Paso 1: Instalación de Vagrant:
+Welcome to the Project Clase 3! This README will guide you on how to download and run the code using Ansible.
 
-Ve al sitio web oficial de Vagrant en https://www.vagrantup.com/ y descarga la última versión de Vagrant según el sistema operativo que estén utilizando.
-Sigue las instrucciones de instalación proporcionadas por el sitio web de Vagrant para tu sistema operativo específico.
-Verifica que Vagrant se haya instalado correctamente abriendo una ventana de terminal (o línea de comandos) y ejecutando el comando vagrant --version. Debería mostrarte la versión de Vagrant instalada.
+## Prerequisites
 
-## Paso 2: Creación de un directorio de trabajo:
+To run this project, ensure that you have the following installed on your machine:
 
-Crea un nuevo directorio en el lugar donde desees trabajar en tus proyectos de Vagrant.
-Abre una ventana de terminal y navega hasta el directorio recién creado utilizando el comando cd.
+- Ansible (version 2.13.8)
 
-## Paso 3: Inicialización del proyecto:
+## Install and Run
 
-En la ventana de terminal, ejecuta el comando vagrant init. Esto creará un archivo de configuración llamado "Vagrantfile" en el directorio actual.
-El archivo Vagrantfile contiene la configuración de tu entorno de desarrollo. Puedes abrirlo con un editor de texto para personalizarlo según tus necesidades, pero por ahora, puedes dejarlo como está.
+Follow these steps to download and set up the project using Ansible:
 
-## Paso 4: Elección de una imagen base (box):
+1. Clone the repository:
 
-Vagrant utiliza imágenes base llamadas "boxes" para crear máquinas virtuales. Puedes elegir una box predefinida o buscar una en la Vagrant Cloud (https://app.vagrantup.com/boxes/search) según tus necesidades.
-En el archivo Vagrantfile, encuentra la línea que comienza con config.vm.box =. Reemplázala con el nombre de la box que deseas utilizar. Por ejemplo, config.vm.box = "ubuntu/kinetic64".
+   ```bash
+    git clone https://github.com/edgaregonzalez/devops-63703.git
+   ```
 
-## Paso 5: Inicio de la máquina virtual:
+2. move to the right folder:
 
-En la ventana de terminal, ejecuta el comando vagrant up. Esto iniciará la máquina virtual utilizando la configuración del archivo Vagrantfile y la box seleccionada.
-Vagrant descargará la box si es necesario y creará la máquina virtual. El proceso puede llevar unos minutos dependiendo de la velocidad de tu conexión a Internet.
+   ```shell
+    cd Clase3
 
-## Paso 6: Acceso a la máquina virtual:
+2. Run the playbook:
 
-Una vez que la máquina virtual esté en funcionamiento, puedes acceder a ella utilizando el comando vagrant ssh. Esto abrirá una conexión SSH a la máquina virtual.
-Ahora estás dentro de la máquina virtual y puedes ejecutar comandos como lo harías en una terminal normal.
+   ```shell
+    ansible-playbook -i inventory.ini apache.yml
 
-## Paso 7: Detener y destruir la máquina virtual:
+## Contribute
 
-Cuando hayas terminado de usar la máquina virtual, puedes detenerla ejecutando el comando vagrant halt en la ventana de terminal.
-Si deseas eliminar completamente la máquina virtual, puedes ejecutar el comando vagrant destroy. Esto eliminará todos los archivos asociados con la máquina virtual, pero ten cuidado, ya que no se puede deshacer.
+You can contribute to this project by forking the repository, making your changes and creating a pull request.
+1. Fork the repository:
 
-## Links de interes.
+2. Create your feature branch:
+    
+    ```shell
+     git checkout -b feature/AmazingFeature
 
-[Repositorio de Vagrant Boxes](https://app.vagrantup.com/boxes/search)
+3. Make your desired changes and commit them:
+        
+        ```shell
+        git commit -m 'Add some AmazingFeature'
 
-[Documentacion Vagrant](https://developer.hashicorp.com/vagrant/docs)
+4. Push your changes to your forked repository:
+        
+        ```shell
+        git push origin feature/AmazingFeature
+
+5. Open a pull request to the main repository.
+
+## License
+
+    this project is under the license [MIT](https://choosealicense.com/licenses/mit/).
+
+## Contact
+    Ezequiel Gonzalez - edgaregonzalez@gmail.com
