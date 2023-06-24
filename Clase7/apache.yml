@@ -1,0 +1,45 @@
+- name: Configure server
+  hosts: webservers
+  become: true
+
+  tasks:
+    - name: Update package cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+    
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: latest
+    
+    - name: Enable Apache
+      service:
+        name: apache2
+        enabled: true
+        state: started
+    - name: create applogs directory
+      file:
+        path: /applogs
+        state: directory
+        mode: 0750
+        owner: root
+        group: root
+
+    - name: mount all disks
+      command: mount -a
+    - name: replace error log
+      lineinfile:
+        path: /etc/apache2/sites-available/000-default.conf
+        regexp: '{{ item.regexp }}'
+        line: '{{ item.line }}'
+        backrefs: yes
+      with_items:
+        - { regexp: '^(.*)ErrorLog\s+\$\{APACHE_LOG_DIR\}/error.log$', line: '\1ErrorLog /applogs/error.log' }
+        - { regexp: '^(.*)CustomLog\s+\$\{APACHE_LOG_DIR\}/access.log combined$', line: '\1CustomLog /applogs/access.log combined' }
+        
+    - name: restart apache2
+      systemd:
+        name: apache2
+        state: restarted
+    

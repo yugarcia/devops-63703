@@ -1,0 +1,16 @@
+- name: Configure server
+  hosts: webservers
+  become: true
+ 
+  tasks:
+    - name: Update package cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+    
+    - name: Install unzip and tar
+      apt:
+        name: 
+          - unzip
+          - tar
+        state: latest
