@@ -1,0 +1,38 @@
+- name: Configure server
+  hosts: webservers
+  become: true
+
+  tasks:
+    - name: create geoinventarios directory
+      file:
+        path: /home/yunnier/geoinventarios
+        state: directory
+        mode: 0755
+        owner: root
+        group: root
+
+    - name: create backoffice directory
+      file:
+        path: /home/yunnier/backoffice
+        state: directory
+        mode: 0755
+        owner: root
+        group: root
+
+    - name: copy backoffice
+      copy:
+        src: /mnt/c/Users/yugarcia/repos/backoffice-farmacenter-4.53.0.zip
+        dest: /home/yunnier/backoffice
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Descomprimir archivo
+      unarchive:
+        src: /home/yunnier/backoffice/backoffice-farmacenter-4.53.0.zip
+        dest: /home/yunnier/backoffice
+        remote_src: yes
+        extra_opts: "-o"
+        #creates: /ruta/destino/
+
+    
