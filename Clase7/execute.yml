@@ -1,0 +1,16 @@
+- name: Configure server
+  hosts: webservers
+  become: true
+ 
+  tasks:
+     - name: create backoffice directory
+       file:
+        path: /home/yunnier/backoffice/backoffice-4.53.0/conf
+        state: directory
+        mode: 0755
+        owner: root
+        group: root
+
+     - name: Execute script 
+       command: sh /home/yunnier/backoffice/backoffice-4.53.0/run.sh
+        remote_src=yes
