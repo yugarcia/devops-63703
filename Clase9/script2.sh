@@ -1,6 +1,6 @@
 REPO_OWNER="yugarcia"
 REPO_NAME="devops-63703"
-REPO_TOKEN="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"
+REPO_TOKEN=""
 API_URL1="https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/collaborators"
 API_URL2="https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/teams"
 
