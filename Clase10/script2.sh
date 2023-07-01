@@ -2,7 +2,7 @@
 
 #REPO_OWNER="yugarcia"
 #REPO_NAME="devops-63703"
-#REPO_TOKEN="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"
+#REPO_TOKEN=""
 #API_URL1="https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/collaborators"
 #API_URL2="https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/teams"
 
@@ -34,22 +34,22 @@ process_data(){
 }
 
 help(){
-  echo "Uso: $0 -n <username> -r <reponame> -t <token>"
-  echo " -o <username>: Especifica el nombre del propietario del repositorio"
-  echo " -r <repo>: Especifica el nombre del repositorio"
-  echo " -t <token>: Especifica el token de autenticacion
+   echo "Uso: $0 -n <username> -r <reponame> -t <token>"
+   echo " -o <username>: Especifica el nombre del propietario del repositorio"
+   echo " -r <repo>: Especifica el nombre del repositorio"
+   echo " -t <token>: Especifica el token de autenticacion
+}
 
 main(){
-          if [[ -z "$REPO_OWNER" || -z "$REPO_NAME" || -z "$REPO_TOKEN" ]]; then
+    if [[ -z "$REPO_OWNER" || -z "$REPO_NAME" || -z "$REPO_TOKEN" ]]; then
         echo "Error: Faltan argumentos."
         help
         exit 1
-       fi
+    fi
 
-       get_data $REPO_OWNER $REPO_NAME $REPO_TOKEN
-       process_data "data.json"
-       cat data.json
-  
+    get_data $REPO_OWNER $REPO_NAME $REPO_TOKEN
+    process_data "data.json"
+    cat data.json 
 }
 
 while getopt -o ":o:r:t:h" opt; do
