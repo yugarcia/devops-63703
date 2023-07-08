@@ -1,0 +1,24 @@
+- name: Configure webserver
+  hosts: wordpress
+  gather_facts: True
+  tasks:
+    - name: install tools
+      become: yes
+      ansible.builtin.import_tasks: packages/tools.yml
+      tags: [install-tools] 
+    - name: install apache
+      become: yes
+      ansible.builtin.import_tasks: packages/apache.yml
+      tags: [install-apache]
+    - name: install php-extensions
+      become: yes
+      ansible.builtin.import_tasks: packages/php-extensions.yml
+      tags: [install-php-extensions]
+    - name: install mariadb
+      become: yes
+      ansible.builtin.import_tasks: packages/mariadb.yml
+      tags: [install-mariadb]
+    - name: app db users
+      become: yes
+      ansible.builtin.import_tasks: packages/app-db-users.yml
+      tags: [app-db-users]

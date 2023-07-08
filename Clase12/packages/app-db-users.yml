@@ -1,0 +1,4 @@
+- name: create user wordpress
+  community.mysql.mysql_db:
+    name: wordpress
+    state: present
