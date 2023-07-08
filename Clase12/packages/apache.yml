@@ -1,0 +1,14 @@
+- name: apache - Update package cache
+  apt:
+    update_cache: yes
+
+- name: apache - Install Apache
+  apt:
+    name: apache2
+    state: latest
+
+- name: apache - Enable Apache
+  service:
+    name: apache2
+    enabled: true
+    state: started
