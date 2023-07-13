@@ -1,6 +1,8 @@
 - name: Configure webserver
   hosts: wordpress
   gather_facts: True
+  vars_files:
+    - vars/wordpress.yml
   tasks:
     - name: install tools
       become: yes
@@ -18,7 +20,38 @@
       become: yes
       ansible.builtin.import_tasks: packages/mariadb.yml
       tags: [install-mariadb]
-    - name: app db users
+    - name: app db user
       become: yes
+      vars:
+        _mysql_admin_user: "{{ mysql_admin_user }}"
+        _mysql_admin_password: "{{ mysql_admin_password }}"
+        _mysql_wp_db: "{{ mysql_wp_db }}"
+        _mysql_wp_user: "{{ mysql_wp_user }}"
+        _mysql_wp_password: "{{ mysql_wp_password }}"
       ansible.builtin.import_tasks: packages/app-db-users.yml
-      tags: [app-db-users]
+      tags: [app-db-user]
+    - name:  install dependencies
+      become: yes
+      ansible.builtin.import_tasks: packages/dependencies.yml
+      tags: [insatll-dependencies]
+    - name: configure apache
+      become: yes
+      vars:
+        _apache_server_name: "{{ apache_server_name }}"
+        _apache_server_port: "{{ apache_server_port }}"
+        _apache_server_admin: "{{ apache_server_admin }}"
+      ansible.builtin.import_tasks: packages/apache-config.yml
+      tags: [configure-apache]
+    - name:  wordpress install
+      become: yes
+      vars:
+        _apache_server_name: "{{ apache_server_name }}"
+        _mysql_wp_db: "{{ mysql_wp_db }}"
+        _mysql_wp_user: "{{ mysql_wp_user }}"
+        _mysql_wp_password: "{{ mysql_wp_password }}"
+      ansible.builtin.import_tasks: packages/wordpress-install.yml
+      tags: [wordpress-install]
+    - name: security apache
+      become: yes
+      ansible.builtin.import_tasks: packages/apache-security.yml
+      tags: [security-apache]

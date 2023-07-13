@@ -1,0 +1,8 @@
+- name: Descargar wordpress
+  unarchive:
+    src: https://wordpress.org/latest.tar.gz
+    dest: /var/www/{{ apache_server_name }}/public_html/
+    remote_src: yes
+    owner: www-data
+    group: www-data
+    mode: 0755

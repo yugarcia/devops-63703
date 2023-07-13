@@ -1,0 +1,8 @@
+- name: disable default site
+  file:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+- name: restart apache
+  service:
+    name: apache2
+    state: restarted
