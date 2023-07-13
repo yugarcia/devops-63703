@@ -1,0 +1,14 @@
+- name: create site directory
+  file:
+    path: /var/www/{{_apache_server_name}}/public_html/
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+- name: create wordpress apache site
+  template:
+    src: config/apache.conf.j2
+    dest: /etc/apache2/sites-available/{{ _apache_server_name }}.conf
+    owner: root
+    group: root
+    mode: '0644'
