@@ -1,0 +1,4 @@
+- name: install puyhon3
+  apt:
+    name: ["python3-pymysql"]
+    state: present

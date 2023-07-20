@@ -1,0 +1,4 @@
+- name: Install tools for use in the playbook
+  apt:
+    name: curl
+    state: present

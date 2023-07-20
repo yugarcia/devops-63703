@@ -1,0 +1,82 @@
+- name: Crear usuario prometheus
+  user:
+      name: prometheus
+      shell: /bin/false
+      createhome: no
+- name: Crear directorios para prometheus
+  file:
+      path: /etc/prometheus
+      state: directory
+      owner: prometheus
+      group: prometheus
+- name: Crear directorio /var/lib/prometheus
+  file:
+      path: /var/lib/prometheus
+      state: directory
+      owner: prometheus
+      group: prometheus
+
+- name: Descargar Prometheus
+  get_url:
+      url: https://github.com/prometheus/prometheus/releases/download/v2.45.0/prometheus-2.45.0.linux-amd64.tar.gz
+      dest: /tmp/prometheus-2.45.0.linux-amd64.tar.gz
+
+- name: Extraer Prometheus
+  unarchive:
+      src: /tmp/prometheus-2.45.0.linux-amd64.tar.gz
+      dest: /tmp
+      remote_src: yes
+
+- name: Copiar archivos de Prometheus
+  copy:
+      src: /tmp/prometheus-2.45.0.linux-amd64/
+      dest: /usr/local/bin/
+      owner: prometheus
+      group: prometheus
+      mode: 0755
+      remote_src: yes
+
+- name: Copiar directorios consoles y console_libraries
+  copy:
+      src: /tmp/prometheus-2.45.0.linux-amd64/consoles/
+      dest: /etc/prometheus/
+      owner: prometheus
+      group: prometheus
+      mode: 0755
+      remote_src: yes
+
+- name: Copiar prometheus.yml
+  copy:
+      src: /tmp/prometheus-2.45.0.linux-amd64/prometheus.yml
+      dest: /etc/prometheus/prometheus.yml
+      owner: prometheus
+      group: prometheus
+      mode: 0644
+      remote_src: yes
+
+- name: Crear archivo de servicio Prometheus
+  copy:
+      dest: /etc/systemd/system/prometheus.service
+      content: |
+          [Unit]
+          Description=Prometheus
+          Wants=network-online.target
+          After=network-online.target
+
+          [Service]
+          User=prometheus
+          Group=prometheus
+          ExecStart=/usr/local/bin/prometheus \
+            --config.file /etc/prometheus/prometheus.yml \
+            --storage.tsdb.path /var/lib/prometheus/ \
+            --web.console.templates=/etc/prometheus/consoles \
+            --web.console.libraries=/etc/prometheus/console_libraries
+
+          [Install]
+          WantedBy=multi-user.target
+
+- name: Cargar e iniciar servicio Prometheus
+  systemd:
+      name: prometheus
+      state: started
+      enabled: yes
