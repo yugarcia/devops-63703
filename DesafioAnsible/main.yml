@@ -56,3 +56,15 @@
         _mysql_wp_password: "{{ mysql_wp_password }}"
       ansible.builtin.import_tasks: packages/wordpress-install.yml
       tags: [wordpress-install]
+    - name: Intall Grafana
+      become: yes
+      ansible.builtin.import_tasks: packages/grafana.yml
+      tags: [install-grafana]
+    - name: Intall Prometheus
+      become: yes
+      ansible.builtin.import_tasks: packages/prometheus-install.yml
+      tags: [install-prometheus]
+    - name: Intall Node Exporter
+      become: yes
+      ansible.builtin.import_tasks: packages/node-exporter.yml
+      tags: [install-node-exporter]

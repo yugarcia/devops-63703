@@ -1,0 +1,13 @@
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+- name: Install PHP extensions
+  apt:
+    name: ['php', 'php-mysql', 'php-curl', 'php-gd', 'php-intl', 'php-mbstring', 'php-soap', 'php-xml', 'php-xmlrpc', 'php-zip', 'php-intl']
+    state: present
+- name: Restart Apache
+  service:
+    name: apache2
+    state: restarted
+    enabled: yes

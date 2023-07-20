@@ -1,0 +1,20 @@
+- name: Download mysql repository
+  get_url:
+    url: https://dev.mysql.com/get/mysql-apt-config_0.8.25-1_all.deb
+    dest: /tmp/mysql-apt-config_0.8.25-1_all.deb
+- name: Install mysql repository
+  apt:
+    deb: /tmp/mysql-apt-config_0.8.25-1_all.deb
+    state: present
+- name: Update apt cache  # Actualiza el cache de apt
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+- name: Install mysql-server
+  apt:
+    name: mysql-server
+    state: present
+- name: Install mysql-client
+  apt:
+    name: mysql-client
+    state: present
