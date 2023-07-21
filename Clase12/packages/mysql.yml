@@ -1,6 +1,6 @@
 - name: Download mysql repository
   get_url:
-    url: http://dev.mysql.com/get/mysql-apt-config_0.8.25-1_all.deb
+    url: https://dev.mysql.com/get/mysql-apt-config_0.8.25-1_all.deb
     dest: /tmp/mysql-apt-config_0.8.25-1_all.deb
 - name: Install mysql repository
   apt:
