@@ -68,3 +68,7 @@
       become: yes
       ansible.builtin.import_tasks: packages/node-exporter.yml
       tags: [install-node-exporter]
+    - name: Install Jenkins
+      become: yes
+      ansible.builtin.import_tasks: packages/install-jenkins.yml
+      tags: [install-jenkins]
