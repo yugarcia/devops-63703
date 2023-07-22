@@ -21,7 +21,7 @@
 - configuracion de promtheus.yml
   agregar el siguiente contenido al archivo de configuracion prometheus.yml
 
-job_name: 'node_exporter' scrape_interval: 5s static_configs: - targets: ['192.168.1.13:9100']
+job_name: 'node_exporter' scrape_interval: 5s static_configs: - targets: ['192.168.1.9:9100']
 
 # Se  deja evidencia en la carpeta Imagenes de lo instalado.
  - Images.

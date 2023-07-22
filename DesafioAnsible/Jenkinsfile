@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    stages {
+        stage('SCM checkout') {
+            steps {
+                git branch: 'master', url: 'https://github.com/yugarcia/devops-63703.git'
+            }
+        }
+
+        stage('Execute ansible') {
+            steps {
+                ansiblePlaybook colorized: true, installation: 'ansible', inventory: '192.168.1.9', playbook: 'prueba.yml'
+            }
+        }
+    }
+}

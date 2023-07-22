@@ -1,0 +1,9 @@
+- name: Instalar Vim
+  hosts: tu_servidor
+  become: yes
+
+  tasks:
+    - name: Instalar Vim
+      package:
+        name: vim
+        state: present
