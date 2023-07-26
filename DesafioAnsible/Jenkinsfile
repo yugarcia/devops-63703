@@ -9,7 +9,7 @@ pipeline {
 
         stage('Execute ansible') {
             steps {
-                ansiblePlaybook colorized: true, installation: 'ansible', inventory: 'DesafioAnsible/inventory.ini', playbook: 'DesafioAnsible/prueba.yml'
+               sh  "ansible-playbook -i  ./DesafioAnsible/inventory.ini ./DesafioAnsible/prueba.yml"
             }
         }
     }
